@@ -1,0 +1,36 @@
+{
+  "name": "typed-ng-table",
+  "version": "1.0.0",
+  "description": "Typescript typings definitions for ng-table",
+  "author": "christianacca",
+  "license": "MIT",
+  "homepage": "https://github.com/christianacca/typed-ng-table#readme",
+  "main": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianacca/typed-ng-table.git"
+  },
+  "bugs": {
+    "url": "https://github.com/christianacca/typed-ng-table/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "typings",
+    "definitions",
+    "typescript",
+    "ng-table",
+    "typed",
+    "tsd"
+  ],
+  "scripts": {
+    "postinstall": "typings install",
+    "test": "npm run tsc",
+    "tsc": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "1.8.10",
+    "typings": "1.3.0"
+  }
+}
