@@ -1,4 +1,4 @@
-import { IDataRowGroup, INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor } from 'ng-table';
+import { IDataRowGroup, INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor } from 'ng-table/core';
 import { IDynamicTableColDef } from 'ng-table/browser';
 import { IEventsChannel, IUnregistrationFunc } from 'ng-table/events'
 

@@ -1,4 +1,4 @@
-declare namespace NgTable {
+declare namespace NgTable.Core {
 
     interface IDataSettings {
         applyPaging?: boolean;
@@ -92,7 +92,7 @@ declare namespace NgTable {
         sortDirection?: string
     }
 
-    interface InternalTableParams<T> extends NgTable.INgTableParams<T> {
+    interface InternalTableParams<T> extends INgTableParams<T> {
         isNullInstance: boolean
     }
 
@@ -461,22 +461,22 @@ declare namespace NgTable {
 }
 
 declare namespace NgTable.Events {
-    type EventSelector<T> = NgTable.INgTableParams<T> | IEventSelectorFunc
+    type EventSelector<T> = NgTable.Core.INgTableParams<T> | IEventSelectorFunc
 
     interface IAfterCreatedListener {
-        (publisher: NgTable.INgTableParams<any>): any
+        (publisher: NgTable.Core.INgTableParams<any>): any
     }
     interface IAfterReloadDataListener<T> {
-        (publisher: NgTable.INgTableParams<T>, newData: NgTable.DataResult<T>[], oldData: NgTable.DataResult<T>[]): any
+        (publisher: NgTable.Core.INgTableParams<T>, newData: NgTable.Core.DataResult<T>[], oldData: NgTable.Core.DataResult<T>[]): any
     }
     interface IDatasetChangedListener<T> {
-        (publisher: NgTable.INgTableParams<T>, newDataset: T[], oldDataset: T[]): any
+        (publisher: NgTable.Core.INgTableParams<T>, newDataset: T[], oldDataset: T[]): any
     }
     interface IEventSelectorFunc {
-        (publisher: NgTable.INgTableParams<any>): boolean
+        (publisher: NgTable.Core.INgTableParams<any>): boolean
     }
     interface IPagesChangedListener {
-        (publisher: NgTable.INgTableParams<any>, newPages: NgTable.IPageButton[], oldPages: NgTable.IPageButton[]): any
+        (publisher: NgTable.Core.INgTableParams<any>, newPages: NgTable.Core.IPageButton[], oldPages: NgTable.Core.IPageButton[]): any
     }
 
     interface IUnregistrationFunc {
@@ -567,10 +567,10 @@ declare namespace NgTable.Events {
          */
         onPagesChanged<T>(listener: Events.IPagesChangedListener, eventFilter?: Events.EventSelector<T>): IUnregistrationFunc;
 
-        publishAfterCreated<T>(publisher: NgTable.INgTableParams<T>): void;
-        publishAfterReloadData<T>(publisher: NgTable.INgTableParams<T>, newData: T[], oldData: T[]): void;
-        publishDatasetChanged<T>(publisher: NgTable.INgTableParams<T>, newDataset: T[], oldDataset: T[]): void;
-        publishPagesChanged<T>(publisher: NgTable.INgTableParams<T>, newPages: NgTable.IPageButton[], oldPages: NgTable.IPageButton[]): void;
+        publishAfterCreated<T>(publisher: NgTable.Core.INgTableParams<T>): void;
+        publishAfterReloadData<T>(publisher: NgTable.Core.INgTableParams<T>, newData: T[], oldData: T[]): void;
+        publishDatasetChanged<T>(publisher: NgTable.Core.INgTableParams<T>, newDataset: T[], oldDataset: T[]): void;
+        publishPagesChanged<T>(publisher: NgTable.Core.INgTableParams<T>, newPages: NgTable.Core.IPageButton[], oldPages: NgTable.Core.IPageButton[]): void;
     }
 }
 
@@ -817,14 +817,15 @@ declare namespace NgTable.Browser {
 }
 
 // Support for AMD require and CommonJS
-declare module "ng-table" {
-    export = NgTable;
+declare module 'ng-table/core' {
+    import core = NgTable.Core;
+    export = core;
 }
-declare module "ng-table/browser" {
+declare module 'ng-table/browser' {
     import browser = NgTable.Browser;
     export = browser;
 }
-declare module "ng-table/events" {
+declare module 'ng-table/events' {
     import events = NgTable.Events;
     export = events;
 }

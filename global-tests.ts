@@ -11,19 +11,20 @@ namespace Glob {
     }
 }
 
-
 // NgTableParams signature tests
 namespace Glob.NgTableParamsTests {
+    
+    import ngtc = NgTable.Core;
 
-    function createNgTable<T>(ctor: NgTable.ITableParamsConstructor<T>, myParams: NgTable.IParamValues<T>, mySettings: NgTable.ISettings<T>) {
+    function createNgTable<T>(ctor: ngtc.ITableParamsConstructor<T>, myParams: ngtc.IParamValues<T>, mySettings: ngtc.ISettings<T>) {
         return new ctor(myParams, mySettings);
     }
 
-    let initialParams: NgTable.IParamValues<IPerson> = {
+    let initialParams: ngtc.IParamValues<IPerson> = {
         filter: { name: 'Christian' },
         sorting: { age: 'asc' }
     };
-    let settings: NgTable.ISettings<IPerson> = {
+    let settings: ngtc.ISettings<IPerson> = {
         dataset: [{ age: 1, name: 'Christian' }, { age: 2, name: 'Lee' }, { age: 40, name: 'Christian' }],
         filterOptions: {
             filterComparator: true,
@@ -69,6 +70,8 @@ namespace Glob.ColumnTests {
 }
 
 namespace Glob.EventsTests {
+    import ngtc = NgTable.Core;
+    
     declare let events: NgTable.Events.IEventsChannel;
 
     let unregistrationFuncs: NgTable.Events.IUnregistrationFunc[] = [];
@@ -107,14 +110,14 @@ namespace Glob.EventsTests {
     });
 
 
-    function printPageButton(btn: NgTable.IPageButton) {
+    function printPageButton(btn: ngtc.IPageButton) {
         console.log('type: ' + btn.type);
         console.log('number: ' + btn['number']);
         console.log('current: ' + btn.current);
         console.log('active: ' + btn.active);
     }
 
-    function isDataGroup(row: any): row is NgTable.IDataRowGroup<any> {
+    function isDataGroup(row: any): row is ngtc.IDataRowGroup<any> {
         return ('$hideRows' in row);
     }
 }
