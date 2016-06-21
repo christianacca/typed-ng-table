@@ -815,3 +815,16 @@ declare namespace NgTable.Browser {
         (): ISelectOption[] | ng.IPromise<ISelectOption[]>
     }
 }
+
+// Support for AMD require and CommonJS
+declare module "ng-table" {
+    export = NgTable;
+}
+declare module "ng-table/browser" {
+    import browser = NgTable.Browser;
+    export = browser;
+}
+declare module "ng-table/events" {
+    import events = NgTable.Events;
+    export = events;
+}

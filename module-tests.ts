@@ -1,25 +1,32 @@
-interface IPerson {
-    age: number;
-    name: string;
+import { IDataRowGroup, INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor } from 'ng-table';
+import { IDynamicTableColDef } from 'ng-table/browser';
+import { IEventsChannel, IUnregistrationFunc } from 'ng-table/events'
+
+namespace Mod {
+    export interface IPerson {
+        age: number;
+        name: string;
+    }
+
+    export function printPerson(p: IPerson) {
+        console.log('age: ' + p.age);
+        console.log('name: ' + p.name);
+    }
 }
 
-function printPerson(p: IPerson) {
-    console.log('age: ' + p.age);
-    console.log('name: ' + p.name);
-}
 
 // NgTableParams signature tests
-namespace NgTableParamsTests {
+namespace Mod.NgTableParamsTests {
 
-    function createNgTable<T>(ctor: NgTable.ITableParamsConstructor<T>, myParams: NgTable.IParamValues<T>, mySettings: NgTable.ISettings<T>) {
+    function createNgTable<T>(ctor: ITableParamsConstructor<T>, myParams: IParamValues<T>, mySettings: ISettings<T>) {
         return new ctor(myParams, mySettings);
     }
 
-    let initialParams: NgTable.IParamValues<IPerson> = {
+    let initialParams: IParamValues<IPerson> = {
         filter: { name: 'Christian' },
         sorting: { age: 'asc' }
     };
-    let settings: NgTable.ISettings<IPerson> = {
+    let settings: ISettings<IPerson> = {
         dataset: [{ age: 1, name: 'Christian' }, { age: 2, name: 'Lee' }, { age: 40, name: 'Christian' }],
         filterOptions: {
             filterComparator: true,
@@ -47,11 +54,11 @@ namespace NgTableParamsTests {
 }
 
 // Dynamic table column signature tests
-namespace ColumnTests {
+namespace Mod.ColumnTests {
     interface ICustomColFields {
         field: string;
     }
-    let dynamicCols: (NgTable.Browser.IDynamicTableColDef & ICustomColFields)[];
+    let dynamicCols: (IDynamicTableColDef & ICustomColFields)[];
 
     dynamicCols.push({
         class: () => 'table',
@@ -64,11 +71,11 @@ namespace ColumnTests {
     });
 }
 
-namespace EventsTests {
-    declare let events: NgTable.Events.IEventsChannel;
+namespace Mod.EventsTests {
+    declare let events: IEventsChannel;
 
-    let unregistrationFuncs: NgTable.Events.IUnregistrationFunc[] = [];
-    let x: NgTable.Events.IUnregistrationFunc;
+    let unregistrationFuncs: IUnregistrationFunc[] = [];
+    let x: IUnregistrationFunc;
 
     x = events.onAfterCreated(params => {
         // do stuff
@@ -103,14 +110,14 @@ namespace EventsTests {
     });
 
 
-    function printPageButton(btn: NgTable.IPageButton) {
+    function printPageButton(btn: IPageButton) {
         console.log('type: ' + btn.type);
         console.log('number: ' + btn['number']);
         console.log('current: ' + btn.current);
         console.log('active: ' + btn.active);
     }
 
-    function isDataGroup(row: any): row is NgTable.IDataRowGroup<any> {
+    function isDataGroup(row: any): row is IDataRowGroup<any> {
         return ('$hideRows' in row);
     }
 }
